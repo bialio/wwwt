@@ -36,7 +36,6 @@ struct TripCountdownView: View {
             .background(RoundedRectangle(cornerRadius: Theme.cornerMedium).fill(Theme.elevated))
         }
         .buttonStyle(.card)
-        .frame(width: 200, alignment: .trailing)
     }
 }
 

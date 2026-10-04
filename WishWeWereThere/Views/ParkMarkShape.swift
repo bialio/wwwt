@@ -16,8 +16,8 @@ struct ParkMarkShape: Shape {
         switch mark {
         case .castle: addCastle(to: &path)
         case .sphere: addSphere(to: &path)
-        case .marquee: addMarquee(to: &path)
-        case .tree: addTree(to: &path)
+        case .marquee: addTowerOfTerror(to: &path)
+        case .tree: addTreeOfLife(to: &path)
         }
         let transform = CGAffineTransform(scaleX: rect.width / 48, y: rect.height / 48)
             .concatenating(CGAffineTransform(translationX: rect.minX, y: rect.minY))
@@ -58,38 +58,48 @@ struct ParkMarkShape: Shape {
         path.addLine(to: CGPoint(x: 36, y: 31))
     }
 
-    private func addMarquee(to path: inout Path) {
-        path.addRoundedRect(in: CGRect(x: 8, y: 14, width: 32, height: 20), cornerSize: CGSize(width: 2, height: 2))
+    /// A stepped, spired tower silhouette evoking the Hollywood Tower Hotel (Tower of Terror).
+    private func addTowerOfTerror(to path: inout Path) {
+        path.move(to: CGPoint(x: 16, y: 40))
+        path.addLine(to: CGPoint(x: 16, y: 14))
+        path.addLine(to: CGPoint(x: 18, y: 8))
+        path.addLine(to: CGPoint(x: 20, y: 14))
+        path.addLine(to: CGPoint(x: 24, y: 6))
+        path.addLine(to: CGPoint(x: 28, y: 14))
+        path.addLine(to: CGPoint(x: 30, y: 8))
+        path.addLine(to: CGPoint(x: 32, y: 14))
+        path.addLine(to: CGPoint(x: 32, y: 40))
 
-        path.move(to: CGPoint(x: 12, y: 14))
-        path.addLine(to: CGPoint(x: 12, y: 10))
-        path.addLine(to: CGPoint(x: 36, y: 10))
-        path.addLine(to: CGPoint(x: 36, y: 14))
+        path.move(to: CGPoint(x: 19, y: 22))
+        path.addLine(to: CGPoint(x: 29, y: 22))
 
-        path.move(to: CGPoint(x: 16, y: 22))
-        path.addLine(to: CGPoint(x: 32, y: 22))
+        path.move(to: CGPoint(x: 19, y: 30))
+        path.addLine(to: CGPoint(x: 29, y: 30))
 
-        path.move(to: CGPoint(x: 16, y: 28))
-        path.addLine(to: CGPoint(x: 26, y: 28))
+        path.move(to: CGPoint(x: 21, y: 40))
+        path.addLine(to: CGPoint(x: 21, y: 34))
+        path.addLine(to: CGPoint(x: 27, y: 34))
+        path.addLine(to: CGPoint(x: 27, y: 40))
     }
 
-    private func addTree(to path: inout Path) {
-        path.move(to: CGPoint(x: 24, y: 40))
-        path.addLine(to: CGPoint(x: 24, y: 22))
+    /// A thick-trunked, broad-canopied silhouette evoking the Tree of Life.
+    private func addTreeOfLife(to path: inout Path) {
+        path.move(to: CGPoint(x: 16, y: 40))
+        path.addQuadCurve(to: CGPoint(x: 21, y: 24), control: CGPoint(x: 13, y: 32))
 
-        path.move(to: CGPoint(x: 24, y: 28))
-        path.addLine(to: CGPoint(x: 12, y: 18))
+        path.move(to: CGPoint(x: 32, y: 40))
+        path.addQuadCurve(to: CGPoint(x: 27, y: 24), control: CGPoint(x: 35, y: 32))
 
-        path.move(to: CGPoint(x: 24, y: 24))
-        path.addLine(to: CGPoint(x: 36, y: 16))
+        path.addEllipse(in: CGRect(x: 9, y: 6, width: 30, height: 22))
 
-        path.move(to: CGPoint(x: 24, y: 18))
-        path.addLine(to: CGPoint(x: 18, y: 10))
+        path.move(to: CGPoint(x: 21, y: 26))
+        path.addLine(to: CGPoint(x: 15, y: 17))
 
-        path.move(to: CGPoint(x: 24, y: 16))
-        path.addLine(to: CGPoint(x: 30, y: 8))
+        path.move(to: CGPoint(x: 24, y: 25))
+        path.addLine(to: CGPoint(x: 24, y: 13))
 
-        path.addEllipse(in: CGRect(x: 21.8, y: 11.8, width: 4.4, height: 4.4))
+        path.move(to: CGPoint(x: 27, y: 26))
+        path.addLine(to: CGPoint(x: 33, y: 17))
     }
 }
 
