@@ -60,7 +60,7 @@
 				CD75F9113071AB5300D92BA4 /* WishWeWereThere */,
 			);
 			name = WishWeWereThere;
-			productName = "WWW@D";
+			productName = WishWeWereThere;
 			productReference = CD75F90F3071AB5300D92BA4 /* WishWeWereThere.app */;
 			productType = "com.apple.product-type.application";
 		};

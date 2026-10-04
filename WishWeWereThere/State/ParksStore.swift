@@ -9,8 +9,8 @@ import Observation
 @Observable
 final class ParksStore {
     private enum DefaultsKey {
-        static let favorites = "wwwd.favorites"
-        static let tripDate = "wwwd.tripDate"
+        static let favorites = "wwwt.favorites"
+        static let tripDate = "wwwt.tripDate"
     }
 
     var resort: ResortPayload?

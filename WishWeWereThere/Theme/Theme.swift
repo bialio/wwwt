@@ -32,9 +32,6 @@ enum Theme {
     static let cornerSmall: CGFloat = 8
     static let cornerMedium: CGFloat = 12
     static let cornerLarge: CGFloat = 20
-    static let cornerXL: CGFloat = 28
-
-    static let display = Font.system(.title, design: .serif, weight: .semibold)
 
     static func displayFont(_ size: CGFloat, weight: Font.Weight = .semibold) -> Font {
         .system(size: size, weight: weight, design: .serif)
