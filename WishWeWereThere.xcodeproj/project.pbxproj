@@ -6,14 +6,71 @@
 	objectVersion = 110;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CD75F9DE307315DD00D92BA4 /* TVServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD75F9DD307315DD00D92BA4 /* TVServices.framework */; };
+		CD75F9E5307315DD00D92BA4 /* TopShelf.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CD75F9DB307315DD00D92BA4 /* TopShelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CD75F9E3307315DD00D92BA4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD75F9073071AB5300D92BA4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD75F9DA307315DD00D92BA4;
+			remoteInfo = TopShelf;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CD75F9EA307315DD00D92BA4 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				CD75F9E5307315DD00D92BA4 /* TopShelf.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		CD75F90F3071AB5300D92BA4 /* WishWeWereThere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WishWeWereThere.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD75F9DB307315DD00D92BA4 /* TopShelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopShelf.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD75F9DD307315DD00D92BA4 /* TVServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TVServices.framework; path = System/Library/Frameworks/TVServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CD75F9E6307315DD00D92BA4 /* Exceptions for "TopShelf" folder in "TopShelf" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CD75F9DA307315DD00D92BA4 /* TopShelf */;
+		};
+		CD75F9F03073165900D92BA4 /* Exceptions for "WishWeWereThere" folder in "WishWeWereThere" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CD75F90E3071AB5300D92BA4 /* WishWeWereThere */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CD75F9113071AB5300D92BA4 /* WishWeWereThere */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CD75F9F03073165900D92BA4 /* Exceptions for "WishWeWereThere" folder in "WishWeWereThere" target */,
+			);
 			path = WishWeWereThere;
+			sourceTree = "<group>";
+		};
+		CD75F9DF307315DD00D92BA4 /* TopShelf */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CD75F9E6307315DD00D92BA4 /* Exceptions for "TopShelf" folder in "TopShelf" target */,
+			);
+			path = TopShelf;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -24,6 +81,12 @@
 			files = (
 			);
 		};
+		CD75F9D8307315DD00D92BA4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				CD75F9DE307315DD00D92BA4 /* TVServices.framework in Frameworks */,
+			);
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -31,6 +94,8 @@
 			isa = PBXGroup;
 			children = (
 				CD75F9113071AB5300D92BA4 /* WishWeWereThere */,
+				CD75F9DF307315DD00D92BA4 /* TopShelf */,
+				CD75F9DC307315DD00D92BA4 /* Frameworks */,
 				CD75F9103071AB5300D92BA4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -39,8 +104,17 @@
 			isa = PBXGroup;
 			children = (
 				CD75F90F3071AB5300D92BA4 /* WishWeWereThere.app */,
+				CD75F9DB307315DD00D92BA4 /* TopShelf.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CD75F9DC307315DD00D92BA4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CD75F9DD307315DD00D92BA4 /* TVServices.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -53,8 +127,12 @@
 				CD75F90B3071AB5300D92BA4 /* Sources */,
 				CD75F90C3071AB5300D92BA4 /* Frameworks */,
 				CD75F90D3071AB5300D92BA4 /* Resources */,
+				CD75F9EA307315DD00D92BA4 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
+			);
+			dependencies = (
+				CD75F9E4307315DD00D92BA4 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				CD75F9113071AB5300D92BA4 /* WishWeWereThere */,
@@ -63,6 +141,24 @@
 			productName = WishWeWereThere;
 			productReference = CD75F90F3071AB5300D92BA4 /* WishWeWereThere.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CD75F9DA307315DD00D92BA4 /* TopShelf */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD75F9E7307315DD00D92BA4 /* Build configuration list for PBXNativeTarget "TopShelf" */;
+			buildPhases = (
+				CD75F9D7307315DD00D92BA4 /* Sources */,
+				CD75F9D8307315DD00D92BA4 /* Frameworks */,
+				CD75F9D9307315DD00D92BA4 /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				CD75F9DF307315DD00D92BA4 /* TopShelf */,
+			);
+			name = TopShelf;
+			productName = TopShelf;
+			productReference = CD75F9DB307315DD00D92BA4 /* TopShelf.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -75,6 +171,9 @@
 				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					CD75F90E3071AB5300D92BA4 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					CD75F9DA307315DD00D92BA4 = {
 						CreatedOnToolsVersion = 27.0;
 					};
 				};
@@ -94,12 +193,18 @@
 			projectRoot = "";
 			targets = (
 				CD75F90E3071AB5300D92BA4 /* WishWeWereThere */,
+				CD75F9DA307315DD00D92BA4 /* TopShelf */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CD75F90D3071AB5300D92BA4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		CD75F9D9307315DD00D92BA4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
 			);
@@ -112,7 +217,20 @@
 			files = (
 			);
 		};
+		CD75F9D7307315DD00D92BA4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CD75F9E4307315DD00D92BA4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD75F9DA307315DD00D92BA4 /* TopShelf */;
+			targetProxy = CD75F9E3307315DD00D92BA4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		CD75F9183071AB5300D92BA4 /* Debug configuration for PBXProject "WishWeWereThere" */ = {
@@ -241,12 +359,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WishWeWereThere/WishWeWereThere.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8FQ3SJCQ67;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WishWeWereThere/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Wish We Were There";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -256,6 +377,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.thelindstrom.WishWeWereThere;
 				PRODUCT_NAME = WishWeWereThere;
+				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -271,12 +393,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WishWeWereThere/WishWeWereThere.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8FQ3SJCQ67;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WishWeWereThere/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Wish We Were There";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -286,9 +411,70 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.thelindstrom.WishWeWereThere;
 				PRODUCT_NAME = WishWeWereThere;
+				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+			};
+			name = Release;
+		};
+		CD75F9E8307315DD00D92BA4 /* Debug configuration for PBXNativeTarget "TopShelf" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TopShelf/TopShelf.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5S6BZ9AL67;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TopShelf/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TopShelf;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thelindstrom.WishWeWereThere.TopShelf;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+			};
+			name = Debug;
+		};
+		CD75F9E9307315DD00D92BA4 /* Release configuration for PBXNativeTarget "TopShelf" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TopShelf/TopShelf.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5S6BZ9AL67;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TopShelf/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TopShelf;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thelindstrom.WishWeWereThere.TopShelf;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -312,6 +498,14 @@
 			buildConfigurations = (
 				CD75F91B3071AB5300D92BA4 /* Debug configuration for PBXNativeTarget "WishWeWereThere" */,
 				CD75F91C3071AB5300D92BA4 /* Release configuration for PBXNativeTarget "WishWeWereThere" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		CD75F9E7307315DD00D92BA4 /* Build configuration list for PBXNativeTarget "TopShelf" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD75F9E8307315DD00D92BA4 /* Debug configuration for PBXNativeTarget "TopShelf" */,
+				CD75F9E9307315DD00D92BA4 /* Release configuration for PBXNativeTarget "TopShelf" */,
 			);
 			defaultConfigurationName = Release;
 		};

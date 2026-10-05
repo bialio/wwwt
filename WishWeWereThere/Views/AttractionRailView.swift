@@ -10,7 +10,6 @@ struct AttractionRailView: View {
     var subtitle: String?
     let attractions: [Attraction]
     var showPark: Bool = true
-    let favorites: Set<String>
     let onSelect: (Attraction) -> Void
 
     var body: some View {
@@ -28,12 +27,10 @@ struct AttractionRailView: View {
                     }
                 }
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 340), spacing: 16)], spacing: 16) {
-                    ForEach(Array(attractions.enumerated()), id: \.element.id) { index, ride in
+                    ForEach(attractions) { ride in
                         AttractionCardView(
                             attraction: ride,
                             showPark: showPark,
-                            featured: index == 0,
-                            isFavorite: favorites.contains(ride.id),
                             onSelect: { onSelect(ride) }
                         )
                     }

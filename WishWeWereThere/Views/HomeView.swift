@@ -7,7 +7,6 @@ import SwiftUI
 
 struct HomeView: View {
     let parks: [ParkSnapshot]
-    let favorites: Set<String>
     let onSelectAttraction: (Attraction) -> Void
     let onSelectPark: (ParkSnapshot) -> Void
 
@@ -40,7 +39,6 @@ struct HomeView: View {
                 title: "Hottest waits",
                 subtitle: "Longest lines across the resort",
                 attractions: Array(top.prefix(4)),
-                favorites: favorites,
                 onSelect: onSelectAttraction
             )
 
@@ -48,7 +46,6 @@ struct HomeView: View {
                 title: "Walk on",
                 subtitle: "Fifteen minutes or less",
                 attractions: Array(walks.prefix(4)),
-                favorites: favorites,
                 onSelect: onSelectAttraction
             )
 

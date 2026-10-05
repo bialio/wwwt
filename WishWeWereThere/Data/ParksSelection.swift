@@ -6,7 +6,7 @@
 import Foundation
 
 enum ViewFilter: String, CaseIterable, Identifiable {
-    case all, open, walk, down, saved
+    case all, open, walk, down
     var id: String { rawValue }
 
     var label: String {
@@ -15,7 +15,6 @@ enum ViewFilter: String, CaseIterable, Identifiable {
         case .open: return "Operating"
         case .walk: return "Walk on"
         case .down: return "Down"
-        case .saved: return "Saved"
         }
     }
 }
@@ -62,7 +61,7 @@ func parkHeadline(_ park: ParkSnapshot) -> Attraction? {
         .max { ($0.waitMinutes ?? 0) < ($1.waitMinutes ?? 0) }
 }
 
-func filterAttractions(_ attractions: [Attraction], filter: ViewFilter, favorites: Set<String>) -> [Attraction] {
+func filterAttractions(_ attractions: [Attraction], filter: ViewFilter) -> [Attraction] {
     switch filter {
     case .all:
         return attractions
@@ -72,8 +71,6 @@ func filterAttractions(_ attractions: [Attraction], filter: ViewFilter, favorite
         return attractions.filter { $0.status == .operating && ($0.waitMinutes ?? Int.max) <= ParksConstants.walkOnMax }
     case .down:
         return attractions.filter { $0.status == .down || $0.status == .refurbishment }
-    case .saved:
-        return attractions.filter { favorites.contains($0.id) }
     }
 }
 

@@ -8,8 +8,6 @@ import SwiftUI
 struct AttractionDetailView: View {
     let park: ParkSnapshot
     let ride: Attraction
-    let isFavorite: Bool
-    let onToggleFavorite: () -> Void
     let onClose: () -> Void
 
     var body: some View {
@@ -82,16 +80,6 @@ struct AttractionDetailView: View {
                     }
                     .padding(.top, 40)
                 }
-
-                Button(action: onToggleFavorite) {
-                    HStack {
-                        Image(systemName: isFavorite ? "bookmark.fill" : "bookmark")
-                        Text(isFavorite ? "Saved to the porch" : "Save for later")
-                    }
-                    .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.bordered)
-                .padding(.top, 48)
             }
             .padding(48)
         }

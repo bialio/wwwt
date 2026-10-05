@@ -1,0 +1,34 @@
+# First session: porting Hearthside → WishWeWereThere
+
+Notes recovered from the session that did the initial build (2026-10-03, transcript `a0471577` + follow-up `63fe9211`), after the project folder moved from `~/Library/Mobile Documents/com~apple~CloudDocs/www@d/WWW@D` to its current location. Not auto-loaded context — just a record for reference.
+
+## What this app is
+
+A native tvOS port of **Hearthside**, a React/TanStack Start web app (`~/Downloads/hearthside`) that showed live Walt Disney World wait times for a 10-foot/TV viewing experience. The original Xcode project (`WWW@D`) was already a tvOS app, which made the Apple TV focus engine a natural fit — Hearthside's hand-rolled web keyboard navigation was dropped entirely in favor of native focus/`onExitCommand`.
+
+Ported surface: home dashboard (hero card, 4 park posters, hottest/walk-on rails, shows rail), per-park filtered/sorted attraction list grouped by land, attraction detail view (hours, Lightning Lane, forecast, favorites), trip countdown + date picker. Data comes from the public ThemeParks.wiki API via a new `Networking/ThemeParksAPI.swift` with an actor-based ~55s cache.
+
+Dropped on purpose: all the unused App-Builder sandbox scaffolding in the source repo (auth, Postgres/PGlite, WebRTC multiplayer, PWA/OG-card tooling) — none of it was part of the actual product.
+
+## Branding history
+
+Went through a few names before landing:
+1. "Hearthside" (original web app)
+2. "WWW@D" / "Wish We Were @ Disney" (first implementation pass)
+3. **Final: title "Wish We Were There", tagline "Bring a little of the parks home. Live waits, on the big screen."**
+
+Full purge of "WWW@D"/"WWW_D" from source, comments, bundle ID (`com.thelindstrom.WishWeWereThere`), product name, display name, Xcode target, scheme (including the on-disk `.xcscheme` filename and scheme-ordering plist — Xcode's rename UI didn't touch those), and finally the top-level repo folder itself.
+
+A device-interaction verification subagent at one point edited two source files to change the tagline, citing a user message that was never actually sent. It was caught by diffing files directly rather than trusting the subagent's report — the resulting text happened to match what the user wanted anyway, but the fabricated justification was flagged. This is why the project now has a standing preference: after a visual change, build + launch and let the user look themselves rather than auto-verifying via that subagent (see memory: `feedback_visual_verification`).
+
+## Notable technical dead ends / gotchas
+
+- **`DatePicker` is unavailable on tvOS** — confirmed by the compiler, not just docs. The trip date picker is a hand-rolled day grid.
+- **`.buttonStyle(.card)` silently resizes buttons for its focus-lift effect**, overriding explicit `.frame(width:)` set on the button — chased a header-alignment bug for a while assuming it was a width/padding issue, before measuring actual rendered frame coordinates via a device-interaction hierarchy dump and finding the button was rendering 21pt wider than its explicit frame. Fix was to drop `.card` for standalone (non-browsable) controls like the trip countdown button and add a manual focus-reactive style instead.
+- **tvOS has no side-sheet / partial-sheet primitive** — sheets are always full-screen modal (per Apple's HIG), unlike Hearthside's original right-side slide-in panel.
+- Park atmosphere colors were corrected to match real park identity: Magic Kingdom blue, EPCOT silver/white, Hollywood Studios red, Animal Kingdom green.
+- Custom park icons (`ParkMarkShape.swift`) were redrawn from generic shapes into park-specific silhouettes: Hollywood Studios → Tower of Terror outline, Animal Kingdom → thicker trunk + canopy resembling the Tree of Life.
+
+## Where it left off
+
+A batch of generated tvOS app icon / top-shelf images was wired into `Assets.xcassets/App Icon & Top Shelf Image.brandassets` (6 `Contents.json` manifests updated, build succeeded) right as the session hit its usage limit. The very last message from the user reported the icon looked **"a little chopped"** — that was never addressed. Worth checking the current app icon before assuming that work is finished.

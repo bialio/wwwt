@@ -28,7 +28,6 @@ struct ContentView: View {
                 if let park = store.parks.first(where: { $0.id == parkID }) {
                     ParkView(
                         park: park,
-                        favorites: store.favorites,
                         onSelectAttraction: { selectedAttraction = $0 }
                     )
                 }
@@ -39,8 +38,6 @@ struct ContentView: View {
                 AttractionDetailView(
                     park: found.park,
                     ride: found.ride,
-                    isFavorite: store.favorites.contains(attraction.id),
-                    onToggleFavorite: { store.toggleFavorite(attraction.id) },
                     onClose: { selectedAttraction = nil }
                 )
             }
@@ -65,13 +62,19 @@ struct ContentView: View {
                     .foregroundStyle(Theme.fg)
                     .lineLimit(1)
                     .fixedSize()
-                Text("Bring a little of the parks home. Live waits, on the big screen.")
+                Text("Bring a little of the parks home.")
                     .font(.subheadline)
                     .foregroundStyle(Theme.muted)
             }
             Spacer()
             TimelineView(.periodic(from: .now, by: 15)) { context in
-                TripCountdownView(tripDate: store.tripDate, now: context.date, onTap: { tripPickerOpen = true })
+                VStack(alignment: .trailing, spacing: 20) {
+                    Text("\(formatClock(context.date)) on Main Street, USA")
+                        .font(.caption)
+                        .foregroundStyle(Theme.muted)
+                        .monospacedDigit()
+                    TripCountdownView(tripDate: store.tripDate, now: context.date, onTap: { tripPickerOpen = true })
+                }
             }
         }
         .frame(maxWidth: .infinity)
@@ -84,7 +87,6 @@ struct ContentView: View {
         } else {
             HomeView(
                 parks: store.parks,
-                favorites: store.favorites,
                 onSelectAttraction: { selectedAttraction = $0 },
                 onSelectPark: { park in path.append(park.id) }
             )
@@ -117,10 +119,6 @@ struct ContentView: View {
                     .font(.caption)
                     .foregroundStyle(Theme.subtle)
                 Spacer()
-                Text(formatClock(context.date))
-                    .font(.caption)
-                    .foregroundStyle(Theme.muted)
-                    .monospacedDigit()
                 Text(statusLine(at: context.date))
                     .font(.caption)
                     .foregroundStyle(Theme.subtle)

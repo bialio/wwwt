@@ -40,7 +40,7 @@ struct ShowsRailView: View {
                                 }
                             }
                             .padding(16)
-                            .frame(width: 240, alignment: .leading)
+                            .frame(width: 240, height: 140, alignment: .leading)
                             .background(RoundedRectangle(cornerRadius: Theme.cornerMedium).fill(Theme.elevated))
                         }
                     }

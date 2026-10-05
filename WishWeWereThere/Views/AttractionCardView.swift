@@ -8,8 +8,6 @@ import SwiftUI
 struct AttractionCardView: View {
     let attraction: Attraction
     var showPark: Bool = false
-    var featured: Bool = false
-    var isFavorite: Bool = false
     var onSelect: () -> Void
 
     var body: some View {
@@ -27,7 +25,7 @@ struct AttractionCardView: View {
                         .foregroundStyle(Theme.muted)
                         .lineLimit(1)
                     Text(attraction.name)
-                        .font(Theme.displayFont(featured ? 22 : 18))
+                        .font(Theme.displayFont(18))
                         .foregroundStyle(Theme.fg)
                         .lineLimit(2)
                     HStack(spacing: 10) {
@@ -43,21 +41,15 @@ struct AttractionCardView: View {
                                 .tracking(1)
                                 .foregroundStyle(Theme.muted)
                         }
-                        if isFavorite {
-                            Text("SAVED")
-                                .font(.caption2.weight(.semibold))
-                                .tracking(1)
-                                .foregroundStyle(Theme.muted)
-                        }
                     }
                 }
                 Spacer(minLength: 12)
-                WaitFigureView(attraction: attraction, size: featured ? .lg : .md)
+                WaitFigureView(attraction: attraction, size: .md)
                     .fixedSize()
                     .layoutPriority(1)
             }
-            .padding(featured ? 22 : 16)
-            .frame(maxWidth: .infinity, minHeight: featured ? 128 : 96, alignment: .leading)
+            .padding(16)
+            .frame(maxWidth: .infinity, minHeight: 124, maxHeight: 124, alignment: .leading)
             .background(RoundedRectangle(cornerRadius: Theme.cornerMedium).fill(Theme.elevated))
         }
         .buttonStyle(.card)
