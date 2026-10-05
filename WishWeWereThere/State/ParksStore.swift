@@ -31,13 +31,14 @@ final class ParksStore {
     init() {
         let defaults = UserDefaults.standard
         tripDate = defaults.string(forKey: DefaultsKey.tripDate)
-        // didSet doesn't fire for this initializer assignment, so republish explicitly:
-        // otherwise a date set before the Top Shelf App Group existed never reaches it.
+        // Create the shared container from the app side. The extension cannot create it, and without it the shelf has nowhere to write the cards.
+        _ = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: Self.appGroupID)
         publishTripDate()
     }
 
     private func publishTripDate() {
         UserDefaults(suiteName: Self.appGroupID)?.set(tripDate, forKey: DefaultsKey.tripDate)
+        ShelfCardWriter.writeCountdown(tripDate: tripDate)
         TVTopShelfContentProvider.topShelfContentDidChange()
     }
 
@@ -69,6 +70,11 @@ final class ParksStore {
             }
             defaults?.set(entries, forKey: DefaultsKey.topWaits)
         }
+        let cards = top.compactMap { attraction -> (name: String, minutes: Int)? in
+            guard let minutes = attraction.waitMinutes else { return nil }
+            return (attraction.name, minutes)
+        }
+        ShelfCardWriter.writeWaits(cards)
         TVTopShelfContentProvider.topShelfContentDidChange()
     }
 
