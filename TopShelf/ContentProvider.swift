@@ -11,7 +11,7 @@ import UIKit
 
 class ContentProvider: TVTopShelfContentProvider {
 
-    private static let appGroupID = "group.com.thelindstrom.wwwt"
+    private static let appGroupID = "group.com.thelindstrom.wwwt.shared"
     private static let tripDateKey = "wwwt.tripDate"
     private static let topWaitsKey = "wwwt.topWaits"
     private static let countdownIdentifier = "trip-countdown"

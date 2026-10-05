@@ -14,7 +14,7 @@ final class ParksStore {
         static let topWaits = "wwwt.topWaits"
     }
 
-    static let appGroupID = "group.com.thelindstrom.wwwt"
+    static let appGroupID = "group.com.thelindstrom.wwwt.shared"
 
     var resort: ResortPayload?
     var isFetching = false
