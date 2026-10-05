@@ -38,8 +38,10 @@ final class ParksStore {
 
     private func publishTripDate() {
         UserDefaults(suiteName: Self.appGroupID)?.set(tripDate, forKey: DefaultsKey.tripDate)
-        ShelfCardWriter.writeCountdown(tripDate: tripDate)
-        TVTopShelfContentProvider.topShelfContentDidChange()
+        // Only reload the shelf when the card changed; each reload is a visible flash.
+        if ShelfCardWriter.writeCountdown(tripDate: tripDate) {
+            TVTopShelfContentProvider.topShelfContentDidChange()
+        }
     }
 
     var parks: [ParkSnapshot] { resort?.parks ?? [] }
@@ -74,8 +76,9 @@ final class ParksStore {
             guard let minutes = attraction.waitMinutes else { return nil }
             return (attraction.name, minutes)
         }
-        ShelfCardWriter.writeWaits(cards)
-        TVTopShelfContentProvider.topShelfContentDidChange()
+        if ShelfCardWriter.writeWaits(cards) {
+            TVTopShelfContentProvider.topShelfContentDidChange()
+        }
     }
 
     func startAutoRefresh() {

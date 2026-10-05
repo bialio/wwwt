@@ -133,6 +133,7 @@ enum ParksConstants {
     static let userAgent = "WishWeWereThere/1.0 (Wish We Were There living-room wait times)"
     static let walkOnMax = 15
     static let moderateMax = 45
-    static let refreshInterval: TimeInterval = 60
-    static let cacheInterval: TimeInterval = 55
+    // ThemeParks.wiki refreshes every few minutes and asks clients to poll no more than once every 5 minutes.
+    static let refreshInterval: TimeInterval = 300
+    static let cacheInterval: TimeInterval = 295
 }

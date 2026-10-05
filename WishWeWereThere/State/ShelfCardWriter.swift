@@ -14,9 +14,11 @@ enum ShelfCardWriter {
     private static let appGroupID = "group.com.thelindstrom.wwwt.shared"
     private static let folderName = "TopShelf"
 
-    static func writeCountdown(tripDate: String?) {
+    /// Returns true only when a new card was written, so callers know whether to poke the home screen.
+    @discardableResult
+    static func writeCountdown(tripDate: String?) -> Bool {
         let copy = tripCopy(tripDate)
-        write(name: "trip-countdown") { context, size in
+        return write(name: "trip-countdown", signature: "\(copy.kicker)|\(copy.title)") { context, size in
             drawChrome(context, size: size, focus: .center)
             let pad = size.width * 0.06
             let kicker = attributed(copy.kicker.uppercased(), size: size.height * 0.07, weight: .medium, color: UIColor(hex: 0x9a958c), tracking: 2.2)
@@ -26,8 +28,10 @@ enum ShelfCardWriter {
         }
     }
 
-    static func writeWaits(_ waits: [(name: String, minutes: Int)]) {
-        write(name: "trip-top-waits") { context, size in
+    @discardableResult
+    static func writeWaits(_ waits: [(name: String, minutes: Int)]) -> Bool {
+        let signature = waits.prefix(4).map { "\($0.name)=\($0.minutes)" }.joined(separator: "|")
+        return write(name: "trip-top-waits", signature: signature) { context, size in
             drawChrome(context, size: size, focus: .trailing)
             let pad = size.width * 0.06
             let header = attributed("LONGEST WAITS RIGHT NOW", size: size.height * 0.065, weight: .medium, color: UIColor(hex: 0x9a958c), tracking: 1.6)
@@ -51,15 +55,23 @@ enum ShelfCardWriter {
         }
     }
 
-    private static func write(name: String, draw: (CGContext, CGSize) -> Void) {
+    private static func write(name: String, signature: String, draw: (CGContext, CGSize) -> Void) -> Bool {
         guard let root = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupID) else {
             NSLog("ShelfCardWriter: no shared folder")
-            return
+            return false
         }
         // tvOS refuses writes at the group folder's root; only Library/Caches is writable there.
         let directory = root
             .appendingPathComponent("Library/Caches", isDirectory: true)
             .appendingPathComponent(folderName, isDirectory: true)
+        // Every new card makes the home screen swap the image with a hard flash, so skip
+        // identical redraws. Still write if tvOS cleared the cache since the last card.
+        let signatureKey = "wwwt.shelfSignature.\(name)"
+        let existing = (try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil)) ?? []
+        let hasCard = existing.contains { $0.lastPathComponent.hasPrefix("\(name)-") }
+        if hasCard, UserDefaults.standard.string(forKey: signatureKey) == signature {
+            return false
+        }
         let size = TVTopShelfSectionedContent.imageSize(for: .hdtv)
         let format = UIGraphicsImageRendererFormat()
         format.scale = 1
@@ -69,7 +81,7 @@ enum ShelfCardWriter {
             draw(renderer.cgContext, size)
             UIGraphicsPopContext()
         }
-        guard let data = image.jpegData(compressionQuality: 0.85) else { return }
+        guard let data = image.jpegData(compressionQuality: 0.85) else { return false }
         do {
             try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
             // The home screen caches cards by URL, so each write needs a new file name to be picked up.
@@ -81,9 +93,12 @@ enum ShelfCardWriter {
             for old in stale {
                 try? FileManager.default.removeItem(at: old)
             }
+            UserDefaults.standard.set(signature, forKey: signatureKey)
             NSLog("ShelfCardWriter wrote %@", url.path)
+            return true
         } catch {
             NSLog("ShelfCardWriter write failed: %@", error.localizedDescription)
+            return false
         }
     }
 
