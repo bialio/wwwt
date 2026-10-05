@@ -11,7 +11,7 @@ import UIKit
 
 class ContentProvider: TVTopShelfContentProvider {
 
-    private static let appGroupID = "group.com.thelindstrom.WishWeWereThere"
+    private static let appGroupID = "group.com.thelindstrom.wwwt"
     private static let tripDateKey = "wwwt.tripDate"
     private static let topWaitsKey = "wwwt.topWaits"
     private static let countdownIdentifier = "trip-countdown"
@@ -30,7 +30,7 @@ class ContentProvider: TVTopShelfContentProvider {
         async let countdownURL = Self.renderImage(
             fileName: Self.countdownFileName,
             background: background,
-            alignment: .leading
+            alignment: .center
         ) { size in CountdownCardView(kicker: tripCopy.kicker, title: tripCopy.title, size: size) }
 
         async let waitsURL = Self.renderImage(

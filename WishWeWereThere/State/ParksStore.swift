@@ -14,7 +14,7 @@ final class ParksStore {
         static let topWaits = "wwwt.topWaits"
     }
 
-    static let appGroupID = "group.com.thelindstrom.WishWeWereThere"
+    static let appGroupID = "group.com.thelindstrom.wwwt"
 
     var resort: ResortPayload?
     var isFetching = false
@@ -22,8 +22,7 @@ final class ParksStore {
     var tripDate: String? {
         didSet {
             UserDefaults.standard.set(tripDate, forKey: DefaultsKey.tripDate)
-            UserDefaults(suiteName: Self.appGroupID)?.set(tripDate, forKey: DefaultsKey.tripDate)
-            TVTopShelfContentProvider.topShelfContentDidChange()
+            publishTripDate()
         }
     }
 
@@ -32,6 +31,14 @@ final class ParksStore {
     init() {
         let defaults = UserDefaults.standard
         tripDate = defaults.string(forKey: DefaultsKey.tripDate)
+        // didSet doesn't fire for this initializer assignment, so republish explicitly:
+        // otherwise a date set before the Top Shelf App Group existed never reaches it.
+        publishTripDate()
+    }
+
+    private func publishTripDate() {
+        UserDefaults(suiteName: Self.appGroupID)?.set(tripDate, forKey: DefaultsKey.tripDate)
+        TVTopShelfContentProvider.topShelfContentDidChange()
     }
 
     var parks: [ParkSnapshot] { resort?.parks ?? [] }
