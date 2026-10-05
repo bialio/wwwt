@@ -53,5 +53,7 @@ struct AttractionCardView: View {
             .background(RoundedRectangle(cornerRadius: Theme.cornerMedium).fill(Theme.elevated))
         }
         .buttonStyle(.card)
+        // Match the card platter to our background so the corners don't double up.
+        .buttonBorderShape(.roundedRectangle(radius: Theme.cornerMedium))
     }
 }

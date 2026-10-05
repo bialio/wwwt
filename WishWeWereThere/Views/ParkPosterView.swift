@@ -66,6 +66,8 @@ struct ParkPosterView: View {
             .background(posterBackground)
         }
         .buttonStyle(.card)
+        // Match the card platter to our background so the corners don't double up.
+        .buttonBorderShape(.roundedRectangle(radius: Theme.cornerLarge))
         .frame(height: 248)
     }
 

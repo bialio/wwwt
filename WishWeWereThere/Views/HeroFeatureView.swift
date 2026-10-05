@@ -42,6 +42,8 @@ struct HeroFeatureView: View {
                 .background(heroBackground(for: park))
             }
             .buttonStyle(.card)
+            // Match the card platter to our background so the corners don't double up.
+            .buttonBorderShape(.roundedRectangle(radius: Theme.cornerLarge))
         } else {
             VStack(alignment: .leading, spacing: 12) {
                 Text("THIS EVENING")
